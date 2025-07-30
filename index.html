@@ -1,42 +1,74 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta charset="UTF-8">
   <title>Razorpay Test Payment</title>
   <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+  <style>
+    body {
+      font-family: sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background: #f6f9fc;
+    }
+
+    .box {
+      padding: 20px;
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+
+    button {
+      background: #5469d4;
+      color: white;
+      padding: 12px 20px;
+      font-size: 16px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: #3f51b5;
+    }
+  </style>
 </head>
 <body>
-  <h2>Pay ₹0.10 Using Razorpay</h2>
-  <button id="rzp-button">Pay Now</button>
 
-  <script>
+<div class="box">
+  <h2>Pay ₹1.00</h2>
+  <button onclick="payNow()">Pay with Razorpay</button>
+</div>
+
+<script>
+  function payNow() {
     var options = {
-        "key": "YOUR_KEY_ID", // Replace with your Razorpay key_id
-        "amount": 10, // 10 paise = ₹0.10
-        "currency": "INR",
-        "name": "Demo Company",
-        "description": "Test Transaction",
-        "image": "Logo-sanner.jpg", // optional
-        "handler": function (response){
-            alert("Payment successful!\nPayment ID: " + response.razorpay_payment_id);
-        },
-        "prefill": {
-            "name": "Neel Rathod",
-            "email": "neel@example.com",
-            "contact": "9999999999"
-        },
-        "theme": {
-            "color": "#3399cc"
-        }
+        key: "rzp_test_YsHlLaZ5hFxu1o", // Replace with your Test Key ID
+        amount: 100, // Amount is in paise = ₹1.00
+        currency: "INR",
+        name: "Your Company",
+        description: "Test Payment",
+        image: "Logo-sanner.jpg", // optional
+        handler: function (response) {
+        alert("Payment Successful! \nPayment ID: " + response.razorpay_payment_id);
+      },
+      prefill: {
+        name: "Test User",
+        email: "test@example.com",
+        contact: "9123456780"
+      },
+      theme: {
+        color: "#5469d4"
+      }
     };
 
-    var rzp = new Razorpay(options);
+    var rzp1 = new Razorpay(options);
+    rzp1.open();
+  }
+</script>
 
-    document.getElementById('rzp-button').onclick = function(e){
-        rzp.open();
-        e.preventDefault();
-    }
-  </script>
 </body>
 </html>
